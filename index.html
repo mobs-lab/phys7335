@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PHYS-7335 | Dynamical Processes on Complex Networks</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<script>
+// ╔════════════════════════════════════════════════════════════════════════════╗
+// ║                    COURSE CONFIGURATION - EDIT HERE!                        ║
+// ║  All course content is in this section for easy updates.                   ║
+// ╚════════════════════════════════════════════════════════════════════════════╝
+
+const COURSE_CONFIG = {
+  // ─────────────────────────────────────────────────────────────────────────────
+  // BASIC INFO
+  // ─────────────────────────────────────────────────────────────────────────────
+  code: "PHYS-7335",
+  title: "Modeling Dynamical Systems on Complex Networks",
+  semester: "Spring 2026",
+  credits: 4,
+  meetingTime: "Mon & Thu 11:45am–1:25pm",
+  location: "TBD", // Update with room number
+  
+  // ─────────────────────────────────────────────────────────────────────────────
+  // INSTRUCTORS
+  // ─────────────────────────────────────────────────────────────────────────────
+  instructors: [
+    {
+      name: "Dr. Alessandro Vespignani",
+      initials: "AV",
+      role: "Sternberg Family Distinguished Professor",
+      affiliation: "Director, Network Science Institute",
+      email: "a.vespignani@northeastern.edu"
+    },
+    {
+      name: "Dr. Jessica Davis",
+      initials: "JD", 
+      role: "Research Assistant Professor",
+      affiliation: "Computational Epidemiology",
+      email: "jes.davis@northeastern.edu"
+    }
+  ],
+  
+  guestLecturers: [
+    { name: "Dr. Nicolò Gozzi", topic: "Temporal Networks & Activity-Driven Models" },
+    { name: "Dr. Guillaume St-Onge", topic: "Probability Generating Functions" }
+  ],
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // WEEKLY SCHEDULE - Each week is an object. Add/remove/edit as needed!
+  // type: "header" for section headers, "week" for regular weeks, "holiday" for breaks
+  // ─────────────────────────────────────────────────────────────────────────────
+  schedule: [
+    { type: "header", title: "Part I: Introduction to Dynamical Processes & Networks" },
+    {
+      type: "week",
+      num: 1,
+      dates: "Jan 8, 12",
+      topic: "Networks Review",
+      description: "Graph theory fundamentals, network metrics, degree distributions, random graphs",
+      readings: [
+        { text: "Textbook: Chapters 1–3", url: null },
+        { text: "Barabási: Network Science (Ch. 1-3)", url: "https://networksciencebook.com" }
+      ]
+    },
+    {
+      type: "week",
+      num: 2,
+      dates: "Jan 15, 16",
+      topic: "Random Walks on Networks",
+      description: "Deterministic vs. stochastic models, degree block models",
+      readings: [
+        { text: "Textbook: Chapter 8 (§8.1–8.2)", url: null },
+        { text: "Noh & Rieger: Random walks on networks", url: "https://arxiv.org/abs/cond-mat/0406566" }
+      ]
+    },
+    { type: "holiday", dates: "Jan 19", title: "🇺🇸 MLK Day — No Class" },
+    
+    { type: "header", title: "Part II: Compartmental Modeling" },
+    {
+      type: "week",
+      num: 3,
+      dates: "Jan 22, 26",
+      topic: "Introduction to Compartmental Models",
+      description: "SIR/SIS models, homogeneous mixing, reproductive number",
+      readings: [
+        { text: "Textbook: Chapters 9–10", url: null },
+        { text: "Kermack & McKendrick (1927)", url: "https://royalsocietypublishing.org/doi/10.1098/rspa.1927.0118" }
+      ]
+    },
+    {
+      type: "week",
+      num: 4,
+      dates: "Jan 29, Feb 2",
+      topic: "Epidemic Threshold & Rumor Models",
+      description: "Critical phenomena, basic reproduction number, information spreading",
+      readings: [
+        { text: "Textbook: Chapter 10", url: null },
+        { text: "Moreno et al.: Dynamics of rumor spreading", url: "https://www.sciencedirect.com/science/article/abs/pii/S0096300302009035" }
+      ]
+    },
+    {
+      type: "week",
+      num: 5,
+      dates: "Feb 5, 9",
+      topic: "Network Modeling",
+      description: "Individual-based models, adjacency matrix approaches, degree block approximation",
+      readings: [
+        { text: "Textbook: Chapter 9 (§9.1–9.2)", url: null }
+      ]
+    },
+    {
+      type: "week",
+      num: 6,
+      dates: "Feb 12, 16",
+      topic: "Epidemic Interventions & Review",
+      description: "Vaccination strategies, containment measures. Feb 12: Midterm Review",
+      readings: [
+        { text: "Pastor-Satorras & Vespignani: Immunization of complex networks", url: "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.65.036104" }
+      ]
+    },
+    { type: "holiday", dates: "Feb 16", title: "🇺🇸 Presidents' Day — No Class" },
+    {
+      type: "week",
+      num: 7,
+      dates: "Feb 19, 23",
+      topic: "Assignment 1 Presentations",
+      description: "Mini-presentations on network properties affecting contagion",
+      readings: []
+    },
+    
+    { type: "header", title: "Part III: Heterogeneous Networks & Advanced Topics" },
+    {
+      type: "week",
+      num: 8,
+      dates: "Feb 26, Mar 2",
+      topic: "Epidemic Thresholds in Heterogeneous Networks",
+      description: "Scale-free networks, absence of epidemic threshold",
+      readings: [
+        { text: "Textbook: Chapter 9 (§9.2–9.3)", url: null },
+        { text: "Pastor-Satorras & Vespignani: Epidemic spreading in SF networks", url: "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.86.3200" }
+      ]
+    },
+    { type: "holiday", dates: "Mar 2–8", title: "🌴 Spring Break — No Class" },
+    {
+      type: "week",
+      num: 9,
+      dates: "Mar 9, 12",
+      topic: "Temporal Networks",
+      description: "Guest: Dr. Nicolò Gozzi — Activity-driven networks, time-varying contact patterns",
+      readings: [
+        { text: "Perra et al.: Activity driven modeling", url: "https://www.nature.com/articles/srep00469" },
+        { text: "GitHub: Temporal networks code", url: "https://github.com/ngozzi/temporal-networks" }
+      ]
+    },
+    {
+      type: "week",
+      num: 10,
+      dates: "Mar 16, 19",
+      topic: "Model Fitting: ABC Methods",
+      description: "Approximate Bayesian Computation, parameter inference",
+      readings: [
+        { text: "Toni et al.: ABC for epidemic models", url: "https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002803" }
+      ]
+    },
+    {
+      type: "week",
+      num: 11,
+      dates: "Mar 23, 26",
+      topic: "Probability Generating Functions",
+      description: "Guest: Dr. Guillaume St-Onge",
+      readings: [
+        { text: "PGF Tutorial Notes", url: "https://cosmo-notes.github.io/pgfunk/chapters/index.html" },
+        { text: "Newman: Spread on random networks", url: "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.66.016128" }
+      ]
+    },
+    {
+      type: "week",
+      num: 12,
+      dates: "Mar 30, Apr 2",
+      topic: "Reaction-Diffusion Processes",
+      description: "Metapopulation models, invasion threshold, GLEaM",
+      readings: [
+        { text: "Pastor-Satorras et al.: Epidemic processes review (§IXB)", url: "https://journals.aps.org/rmp/abstract/10.1103/RevModPhys.87.925" },
+        { text: "Colizza & Vespignani: Metapopulation models", url: "https://arxiv.org/abs/0706.3647" }
+      ]
+    },
+    {
+      type: "week",
+      num: 13,
+      dates: "Apr 6, 9",
+      topic: "Higher-Order Networks",
+      description: "Simplicial complexes, hypergraphs, group interactions",
+      readings: [
+        { text: "Iacopini et al.: Simplicial models of social contagion", url: "https://www.nature.com/articles/s41467-019-10431-6" },
+        { text: "de Arruda et al.: Contagion on higher-order networks", url: "https://www.nature.com/articles/s42254-024-00733-0" }
+      ]
+    },
+    {
+      type: "week",
+      num: 14,
+      dates: "Apr 13, 16",
+      topic: "Social Contagion & Collective Behavior",
+      description: "Opinion dynamics, flocking models, complex contagion",
+      readings: [
+        { text: "Centola: Complex contagion & network structure", url: "https://www.science.org/doi/10.1126/science.aap9559" }
+      ]
+    },
+    { type: "holiday", dates: "Apr 20", title: "🏃 Patriots' Day — No Class" },
+    {
+      type: "week",
+      num: 15,
+      dates: "Apr 23",
+      topic: "Final Presentations Begin",
+      description: "",
+      readings: []
+    },
+    {
+      type: "week",
+      num: "Finals",
+      dates: "Apr 27–May 2",
+      topic: "Finals Week — Presentations Continue",
+      description: "",
+      readings: []
+    }
+  ],
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // ASSIGNMENTS
+  // ─────────────────────────────────────────────────────────────────────────────
+  assignments: [
+    {
+      title: "Assignment 1: Mini-Presentation",
+      weight: "30%",
+      due: "Week 7",
+      description: "10–15 min presentation on a network property affecting contagion (clustering, assortativity, or community structure). Include literature review and analytical exploration."
+    },
+    {
+      title: "Assignment 2: PGF Problem Set", 
+      weight: "20%",
+      due: "Week 12",
+      description: "In-class written assessment on probability generating functions and their applications to network epidemiology."
+    },
+    {
+      title: "Final Project",
+      weight: "50%",
+      due: "Finals Week",
+      description: "Independent research project applying course concepts. Presentations in Week 15 and Finals Week."
+    }
+  ],
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // PROJECT TOPICS - Add or remove as desired
+  // ─────────────────────────────────────────────────────────────────────────────
+  projectTopics: [
+    "Higher-Order Network Models",
+    "Opinion Dynamics", 
+    "Flocking & Collective Behavior",
+    "Ecological Networks",
+    "Brain Networks",
+    "Synchronization",
+    "Evolutionary Game Theory",
+    "Multiplex Networks",
+    "Adaptive Networks"
+  ],
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // RESOURCES
+  // ─────────────────────────────────────────────────────────────────────────────
+  tools: [
+    { name: "GLEaMviz Simulator", url: "http://www.gleamviz.org/simulator/client/" },
+    { name: "Network Science Book", url: "https://networksciencebook.com" },
+    { name: "Temporal Networks Code", url: "https://github.com/ngozzi/temporal-networks" },
+    { name: "PGF Tutorial", url: "https://cosmo-notes.github.io/pgfunk/chapters/index.html" }
+  ],
+  
+  references: {
+    "Foundational Papers": [
+      { authors: "Pastor-Satorras R, Vespignani A", year: 2001, title: "Epidemic spreading in scale-free networks", journal: "Phys Rev Lett 86:3200", url: "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.86.3200" },
+      { authors: "Pastor-Satorras R, Vespignani A", year: 2001, title: "Epidemic dynamics and endemic states in complex networks", journal: "Phys Rev E 63:066117", url: "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.63.066117" },
+      { authors: "Newman MEJ", year: 2002, title: "Spread of epidemic disease on networks", journal: "Phys Rev E 66:016128", url: "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.66.016128" },
+      { authors: "Keeling MJ, Eames KTD", year: 2005, title: "Networks and epidemic models", journal: "J R Soc Interface 2:295-307", url: "https://royalsocietypublishing.org/doi/10.1098/rsif.2005.0051" }
+    ],
+    "Review Articles": [
+      { authors: "Pastor-Satorras R, Castellano C, Van Mieghem P, Vespignani A", year: 2015, title: "Epidemic processes in complex networks", journal: "Rev Mod Phys 87:925", url: "https://journals.aps.org/rmp/abstract/10.1103/RevModPhys.87.925" },
+      { authors: "Barrat A, Barthélemy M, Vespignani A", year: 2008, title: "Dynamical Processes on Complex Networks", journal: "Cambridge University Press", url: "https://www.cambridge.org/core/books/dynamical-processes-on-complex-networks/4E3540D16BBF7822150E861E33E29D9D" },
+      { authors: "Kiss IZ, Miller JC, Simon PL", year: 2017, title: "Mathematics of Epidemics on Networks", journal: "Springer", url: "https://link.springer.com/book/10.1007/978-3-319-50806-1" }
+    ],
+    "Metapopulation & Mobility": [
+      { authors: "Colizza V, Vespignani A", year: 2007, title: "Invasion threshold in heterogeneous metapopulation networks", journal: "Phys Rev Lett 99:148701", url: "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.99.148701" },
+      { authors: "Colizza V, Vespignani A", year: 2008, title: "Epidemic modeling in metapopulation systems with heterogeneous coupling pattern", journal: "J Theor Biol 251:450-467", url: "https://www.sciencedirect.com/science/article/pii/S0022519307005899" },
+      { authors: "Balcan D, Colizza V, Gonçalves B, et al.", year: 2009, title: "Multiscale mobility networks and the spatial spreading of infectious diseases", journal: "PNAS 106:21484", url: "https://www.pnas.org/content/106/51/21484" },
+      { authors: "Balcan D, Vespignani A", year: 2011, title: "Phase transitions in contagion processes mediated by recurrent mobility patterns", journal: "Nat Phys 7:581-586", url: "https://www.nature.com/articles/nphys1944" },
+      { authors: "Brockmann D, Helbing D", year: 2013, title: "The hidden geometry of complex, network-driven contagion phenomena", journal: "Science 342:1337-1342", url: "https://www.science.org/doi/10.1126/science.1245200" }
+    ],
+    "Temporal Networks": [
+      { authors: "Perra N, Gonçalves B, Pastor-Satorras R, Vespignani A", year: 2012, title: "Activity driven modeling of time varying networks", journal: "Sci Rep 2:469", url: "https://www.nature.com/articles/srep00469" },
+      { authors: "Holme P, Saramäki J", year: 2012, title: "Temporal networks", journal: "Phys Rep 519:97-125", url: "https://www.sciencedirect.com/science/article/pii/S0370157312000841" },
+      { authors: "Liu S, Perra N, Karsai M, Vespignani A", year: 2014, title: "Controlling contagion processes in activity driven networks", journal: "Phys Rev Lett 112:118702", url: "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.112.118702" },
+      { authors: "Starnini M, Pastor-Satorras R", year: 2014, title: "Temporal percolation in activity-driven networks", journal: "Phys Rev E 89:032807", url: "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.89.032807" }
+    ],
+    "Higher-Order Networks": [
+      { authors: "Iacopini I, Petri G, Barrat A, Latora V", year: 2019, title: "Simplicial models of social contagion", journal: "Nat Commun 10:2485", url: "https://www.nature.com/articles/s41467-019-10431-6" },
+      { authors: "de Arruda GF, Petri G, Rodriguez PM, Moreno Y", year: 2024, title: "Contagion dynamics on higher-order networks", journal: "Nat Rev Phys", url: "https://www.nature.com/articles/s42254-024-00733-0" },
+      { authors: "St-Onge G, Sun H, Allard A, et al.", year: 2022, title: "Influential groups for seeding and sustaining nonlinear contagion in heterogeneous hypergraphs", journal: "Commun Phys 5:25", url: "https://www.nature.com/articles/s42005-021-00788-w" },
+      { authors: "Battiston F, Cencetti G, Iacopini I, et al.", year: 2020, title: "Networks beyond pairwise interactions: Structure and dynamics", journal: "Phys Rep 874:1-92", url: "https://www.sciencedirect.com/science/article/pii/S0370157320302489" }
+    ],
+    "Interventions & Control": [
+      { authors: "Pastor-Satorras R, Vespignani A", year: 2002, title: "Immunization of complex networks", journal: "Phys Rev E 65:036104", url: "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.65.036104" },
+      { authors: "Cohen R, Havlin S, ben-Avraham D", year: 2003, title: "Efficient immunization strategies for computer networks and populations", journal: "Phys Rev Lett 91:247901", url: "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.91.247901" },
+      { authors: "Holme P, Kim BJ, Yoon CN, Han SK", year: 2002, title: "Attack vulnerability of complex networks", journal: "Phys Rev E 65:056109", url: "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.65.056109" }
+    ],
+    "Information & Social Contagion": [
+      { authors: "Centola D, Macy M", year: 2007, title: "Complex contagions and the weakness of long ties", journal: "Am J Sociol 113:702-734", url: "https://www.journals.uchicago.edu/doi/10.1086/521848" },
+      { authors: "Centola D", year: 2010, title: "The spread of behavior in an online social network experiment", journal: "Science 329:1194-1197", url: "https://www.science.org/doi/10.1126/science.1185231" },
+      { authors: "Granell C, Gómez S, Arenas A", year: 2013, title: "Dynamical interplay between awareness and epidemic spreading in multiplex networks", journal: "Phys Rev Lett 111:128701", url: "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.111.128701" }
+    ]
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // CALENDAR - Important dates (class days are auto-generated from schedule)
+  // Format: "YYYY-MM-DD": { type: "holiday"|"break"|"event", label: "..." }
+  // ─────────────────────────────────────────────────────────────────────────────
+  calendarEvents: {
+    "2026-01-19": { type: "holiday", label: "MLK Day" },
+    "2026-02-16": { type: "holiday", label: "Presidents'" },
+    "2026-03-02": { type: "break", label: "Break" },
+    "2026-03-03": { type: "break", label: "Break" },
+    "2026-03-04": { type: "break", label: "Break" },
+    "2026-03-05": { type: "break", label: "Break" },
+    "2026-03-06": { type: "break", label: "Break" },
+    "2026-03-07": { type: "break", label: "Break" },
+    "2026-03-08": { type: "break", label: "Break" },
+    "2026-04-20": { type: "holiday", label: "Patriots'" }
+  },
+  
+  // Class days (Mon=1, Thu=4) - semester start/end
+  semesterStart: "2026-01-08",
+  semesterEnd: "2026-04-23",
+  classDays: [1, 4] // Monday and Thursday
+};
+
+// ╔════════════════════════════════════════════════════════════════════════════╗
+// ║                 END OF CONFIG - Don't edit below here!                      ║
+// ╚════════════════════════════════════════════════════════════════════════════╝
+</script>
+
+<style>
+:root {
+  --primary: #1a1a2e;
+  --accent: #16213e;
+  --highlight: #0f3460;
+  --teal: #0bccde;
+  --teal-dark: #0a9aa8;
+  --teal-glow: rgba(11, 204, 222, 0.3);
+  --text: #eaeaea;
+  --muted: #a0a0a0;
+  --card-bg: rgba(255,255,255,0.03);
+  --border: rgba(255,255,255,0.1);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 50%, var(--highlight) 100%);
+  min-height: 100vh;
+  color: var(--text);
+  line-height: 1.6;
+}
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+header {
+  padding: 60px 0 40px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(0,0,0,0.2);
+}
+.course-label {
+  display: inline-block;
+  background: var(--teal);
+  color: var(--primary);
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  background: linear-gradient(90deg, #fff 0%, var(--teal) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.subtitle { font-size: 1.1rem; color: var(--muted); margin-bottom: 24px; }
+.meta-row { display: flex; flex-wrap: wrap; gap: 24px; font-size: 0.95rem; }
+.meta-item { display: flex; align-items: center; gap: 8px; }
+.meta-icon { width: 18px; height: 18px; opacity: 0.7; }
+
+nav {
+  background: rgba(0,0,0,0.3);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid var(--border);
+}
+nav ul { list-style: none; display: flex; gap: 8px; padding: 12px 0; overflow-x: auto; }
+nav a {
+  color: var(--muted);
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+nav a:hover, nav a.active { background: var(--teal); color: var(--primary); }
+
+section { padding: 60px 0; border-bottom: 1px solid var(--border); }
+h2 {
+  font-size: 1.8rem;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+h2::before {
+  content: '';
+  width: 4px;
+  height: 28px;
+  background: var(--teal);
+  border-radius: 2px;
+}
+h3 { font-size: 1.2rem; margin-bottom: 12px; color: var(--teal); }
+
+.card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  transition: transform 0.2s, border-color 0.2s;
+}
+.card:hover { transform: translateY(-4px); border-color: var(--teal); }
+.card h4 { font-size: 1.1rem; margin-bottom: 8px; }
+.card p { color: var(--muted); font-size: 0.9rem; }
+.card a { color: var(--teal); text-decoration: none; }
+.card a:hover { text-decoration: underline; }
+
+.instructor-card { display: flex; gap: 16px; align-items: flex-start; }
+.instructor-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--teal), var(--highlight));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.schedule-container { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+th {
+  text-align: left;
+  padding: 16px;
+  background: rgba(11, 204, 222, 0.15);
+  font-weight: 600;
+  white-space: nowrap;
+}
+td {
+  padding: 16px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+tr:hover td { background: rgba(255,255,255,0.02); }
+.week-num {
+  background: var(--teal);
+  color: var(--primary);
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+.section-header td {
+  background: rgba(11, 204, 222, 0.1);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.8rem;
+  color: var(--teal);
+}
+.holiday-row td {
+  background: rgba(11, 204, 222, 0.05);
+  color: var(--teal);
+  font-style: italic;
+}
+.reading-list { margin: 0; padding-left: 16px; color: var(--muted); font-size: 0.85rem; }
+.reading-list li { margin-bottom: 4px; }
+.reading-list a { color: #64b5f6; }
+
+/* Calendar Styles */
+.calendar-wrapper {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  max-width: 500px;
+}
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.calendar-header h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  color: var(--text);
+}
+.cal-nav-btn {
+  background: var(--highlight);
+  border: 1px solid var(--border);
+  color: var(--text);
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cal-nav-btn:hover { background: var(--teal); color: var(--primary); }
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+.cal-header-cell {
+  text-align: center;
+  padding: 8px 4px;
+  font-weight: 600;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+.cal-day {
+  aspect-ratio: 1;
+  padding: 4px;
+  font-size: 0.8rem;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+.cal-day.empty { background: transparent; }
+.cal-day.class-day { background: rgba(11, 204, 222, 0.2); border-color: var(--teal); }
+.cal-day.holiday-day { background: rgba(255, 193, 7, 0.2); border-color: #ffc107; }
+.cal-day.break-day { background: rgba(76, 175, 80, 0.2); border-color: #4caf50; }
+.cal-day.today { box-shadow: 0 0 0 2px var(--teal); }
+.cal-day-num { font-weight: 600; font-size: 0.85rem; }
+.cal-day-label { font-size: 0.55rem; color: var(--muted); margin-top: 1px; text-align: center; line-height: 1.1; }
+.cal-legend { display: flex; gap: 16px; margin-top: 20px; font-size: 0.8rem; flex-wrap: wrap; justify-content: center; }
+.cal-legend-item { display: flex; align-items: center; gap: 6px; }
+.cal-legend-dot { width: 12px; height: 12px; border-radius: 4px; }
+
+.resource-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--highlight);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.2s;
+  margin: 4px;
+}
+.resource-link:hover { background: var(--teal); color: var(--primary); }
+
+.references-section { margin-top: 16px; }
+.ref-category { margin-bottom: 24px; }
+.ref-category h4 { color: var(--teal); font-size: 1rem; margin-bottom: 10px; border-bottom: 1px solid var(--border); padding-bottom: 6px; }
+.ref-list { list-style: none; padding: 0; }
+.ref-list li { padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.9rem; line-height: 1.5; }
+.ref-list li:last-child { border-bottom: none; }
+.ref-list a { color: var(--text); text-decoration: none; }
+.ref-list a:hover { color: var(--teal); text-decoration: underline; }
+.ref-journal { color: var(--muted); font-style: italic; }
+
+.topic-tag {
+  background: var(--highlight);
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 0.85rem;
+  display: inline-block;
+  margin: 4px;
+  border: 1px solid var(--border);
+  transition: all 0.2s;
+}
+.topic-tag:hover { border-color: var(--teal); }
+
+footer {
+  padding: 40px 0;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+footer a { color: var(--teal); text-decoration: none; }
+
+@media (max-width: 768px) {
+  h1 { font-size: 1.8rem; }
+  .meta-row { flex-direction: column; gap: 12px; }
+  section { padding: 40px 0; }
+  .calendar-wrapper { padding: 16px; }
+}
+</style>
+
+<div id="app"></div>
+
+<script>
+// Generate class days
+function getClassDays() {
+  const start = new Date(COURSE_CONFIG.semesterStart);
+  const end = new Date(COURSE_CONFIG.semesterEnd);
+  const classDays = new Set();
+  
+  let current = new Date(start);
+  let weekNum = 1;
+  const weekTopics = {};
+  
+  // Extract week topics from schedule
+  COURSE_CONFIG.schedule.forEach(item => {
+    if (item.type === 'week') {
+      weekTopics[item.num] = item.topic.split(' ')[0].substring(0, 8);
+    }
+  });
+  
+  while (current <= end) {
+    const dayOfWeek = current.getDay();
+    const dateStr = current.toISOString().split('T')[0];
+    
+    if (COURSE_CONFIG.classDays.includes(dayOfWeek) && !COURSE_CONFIG.calendarEvents[dateStr]) {
+      classDays.add(dateStr);
+    }
+    current.setDate(current.getDate() + 1);
+  }
+  
+  return classDays;
+}
+
+const classDays = getClassDays();
+
+// Calendar state
+let currentMonth = 0; // January 2026
+const months = [
+  { year: 2026, month: 0, name: "January 2026" },
+  { year: 2026, month: 1, name: "February 2026" },
+  { year: 2026, month: 2, name: "March 2026" },
+  { year: 2026, month: 3, name: "April 2026" }
+];
+
+function renderCalendar(monthIndex) {
+  const m = months[monthIndex];
+  const firstDay = new Date(m.year, m.month, 1);
+  const lastDay = new Date(m.year, m.month + 1, 0);
+  const startPad = firstDay.getDay();
+  
+  let html = '';
+  const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  days.forEach(d => html += `<div class="cal-header-cell">${d}</div>`);
+  
+  for (let i = 0; i < startPad; i++) {
+    html += '<div class="cal-day empty"></div>';
+  }
+  
+  for (let day = 1; day <= lastDay.getDate(); day++) {
+    const dateStr = `${m.year}-${String(m.month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+    let classes = 'cal-day';
+    let label = '';
+    
+    if (COURSE_CONFIG.calendarEvents[dateStr]) {
+      const evt = COURSE_CONFIG.calendarEvents[dateStr];
+      classes += evt.type === 'holiday' ? ' holiday-day' : ' break-day';
+      label = evt.label;
+    } else if (classDays.has(dateStr)) {
+      classes += ' class-day';
+      label = 'Class';
+    }
+    
+    html += `<div class="${classes}"><div class="cal-day-num">${day}</div>${label ? `<div class="cal-day-label">${label}</div>` : ''}</div>`;
+  }
+  
+  return html;
+}
+
+function render() {
+  const C = COURSE_CONFIG;
+  
+  document.getElementById('app').innerHTML = `
+    <header>
+      <div class="container">
+        <span class="course-label">${C.code} • ${C.semester}</span>
+        <h1>${C.title}</h1>
+        <p class="subtitle">Northeastern University • Network Science Institute</p>
+        <div class="meta-row">
+          <div class="meta-item">
+            <svg class="meta-icon" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/></svg>
+            ${C.meetingTime}
+          </div>
+          <div class="meta-item">
+            <svg class="meta-icon" fill="currentColor" viewBox="0 0 20 20"><path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838l-2.727 1.17 1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762z"/></svg>
+            ${C.credits} Credits
+          </div>
+          <div class="meta-item">
+            <svg class="meta-icon" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
+            ${C.location}
+          </div>
+        </div>
+      </div>
+    </header>
+    
+    <nav>
+      <div class="container">
+        <ul>
+          <li><a href="#about" class="active">About</a></li>
+          <li><a href="#instructors">Instructors</a></li>
+          <li><a href="#schedule">Schedule</a></li>
+          <li><a href="#calendar">Calendar</a></li>
+          <li><a href="#assignments">Assignments</a></li>
+          <li><a href="#resources">Resources</a></li>
+        </ul>
+      </div>
+    </nav>
+    
+    <main>
+      <section id="about">
+        <div class="container">
+          <h2>Course Overview</h2>
+          <p style="max-width: 800px; margin-bottom: 24px;">
+            This course systematically reviews how network characteristics shape equilibrium and non-equilibrium dynamical processes. We introduce fundamental techniques for analyzing dynamical systems on networks, with emphasis on epidemic spreading, information diffusion, and social contagion.
+          </p>
+          <div class="card-grid">
+            <div class="card">
+              <h4>📚 Textbook</h4>
+              <p><em>Dynamical Processes on Complex Networks</em><br>A. Barrat, M. Barthélemy & A. Vespignani<br>Cambridge University Press</p>
+            </div>
+            <div class="card">
+              <h4>🎯 Prerequisites</h4>
+              <p>Graduate standing in Physics, Network Science, or related field. Familiarity with differential equations and probability theory.</p>
+            </div>
+            <div class="card">
+              <h4>💻 Software</h4>
+              <p>Python (NumPy, NetworkX, SciPy), <a href="http://www.gleamviz.org" target="_blank">GLEaMviz Simulator</a></p>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <section id="instructors">
+        <div class="container">
+          <h2>Instructors</h2>
+          <div class="card-grid">
+            ${C.instructors.map(i => `
+              <div class="card instructor-card">
+                <div class="instructor-avatar">${i.initials}</div>
+                <div>
+                  <h4>${i.name}</h4>
+                  <p>${i.role}<br>${i.affiliation}<br><a href="mailto:${i.email}">${i.email}</a></p>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+          <h3 style="margin-top: 32px;">Guest Lecturers</h3>
+          <div class="card-grid">
+            ${C.guestLecturers.map(g => `
+              <div class="card">
+                <h4>${g.name}</h4>
+                <p>${g.topic}</p>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      </section>
+      
+      <section id="schedule">
+        <div class="container">
+          <h2>Course Schedule</h2>
+          <div class="schedule-container">
+            <table>
+              <thead>
+                <tr><th>Week</th><th>Dates</th><th>Topics</th><th>Readings</th></tr>
+              </thead>
+              <tbody>
+                ${C.schedule.map(item => {
+                  if (item.type === 'header') {
+                    return `<tr class="section-header"><td colspan="4">${item.title}</td></tr>`;
+                  } else if (item.type === 'holiday') {
+                    return `<tr class="holiday-row"><td></td><td>${item.dates}</td><td colspan="2">${item.title}</td></tr>`;
+                  } else {
+                    return `
+                      <tr>
+                        <td><span class="week-num">${item.num}</span></td>
+                        <td>${item.dates}</td>
+                        <td><strong>${item.topic}</strong>${item.description ? `<br>${item.description}` : ''}</td>
+                        <td>
+                          ${item.readings.length ? `<ul class="reading-list">
+                            ${item.readings.map(r => `<li>${r.url ? `<a href="${r.url}" target="_blank">${r.text}</a>` : r.text}</li>`).join('')}
+                          </ul>` : ''}
+                        </td>
+                      </tr>
+                    `;
+                  }
+                }).join('')}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+      
+      <section id="calendar">
+        <div class="container">
+          <h2>Semester Calendar</h2>
+          <div class="calendar-wrapper">
+            <div class="calendar-header">
+              <button class="cal-nav-btn" onclick="changeMonth(-1)">‹</button>
+              <h3 id="cal-month-title">${months[currentMonth].name}</h3>
+              <button class="cal-nav-btn" onclick="changeMonth(1)">›</button>
+            </div>
+            <div class="calendar-grid" id="calendar-grid">
+              ${renderCalendar(currentMonth)}
+            </div>
+            <div class="cal-legend">
+              <div class="cal-legend-item"><div class="cal-legend-dot" style="background: rgba(11, 204, 222, 0.4);"></div> Class</div>
+              <div class="cal-legend-item"><div class="cal-legend-dot" style="background: rgba(255, 193, 7, 0.4);"></div> Holiday</div>
+              <div class="cal-legend-item"><div class="cal-legend-dot" style="background: rgba(76, 175, 80, 0.4);"></div> Break</div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <section id="assignments">
+        <div class="container">
+          <h2>Assignments & Grading</h2>
+          <div class="card-grid">
+            ${C.assignments.map((a, i) => `
+              <div class="card">
+                <h4>${['📊', '📝', '🎯'][i]} ${a.title} (${a.weight})</h4>
+                <p><strong>Due: ${a.due}</strong><br>${a.description}</p>
+              </div>
+            `).join('')}
+          </div>
+          <h3 style="margin-top: 32px;">Potential Project Topics</h3>
+          <div style="margin-top: 12px;">
+            ${C.projectTopics.map(t => `<span class="topic-tag">${t}</span>`).join('')}
+          </div>
+        </div>
+      </section>
+      
+      <section id="resources">
+        <div class="container">
+          <h2>Resources</h2>
+          <h3>Essential Tools</h3>
+          <div style="margin: 16px 0;">
+            ${C.tools.map(t => `<a href="${t.url}" target="_blank" class="resource-link">${t.name}</a>`).join('')}
+          </div>
+          <h3 style="margin-top: 24px;">References</h3>
+          <div class="references-section">
+            ${Object.entries(C.references).map(([category, papers]) => `
+              <div class="ref-category">
+                <h4>${category}</h4>
+                <ul class="ref-list">
+                  ${papers.map(p => `
+                    <li>
+                      ${p.authors} (${p.year}). 
+                      <a href="${p.url}" target="_blank">${p.title}</a>. 
+                      <span class="ref-journal">${p.journal}</span>
+                    </li>
+                  `).join('')}
+                </ul>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      </section>
+    </main>
+    
+    <footer>
+      <div class="container">
+        <p>
+          <strong>MOBS Lab</strong> — Laboratory for the Modeling of Biological and Socio-technical Systems<br>
+          <a href="https://www.mobs-lab.org" target="_blank">mobs-lab.org</a> • 
+          <a href="https://www.networkscienceinstitute.org" target="_blank">Network Science Institute</a> • 
+          <a href="https://www.northeastern.edu" target="_blank">Northeastern University</a>
+        </p>
+        <p style="margin-top: 12px;">177 Huntington Ave, 10th Floor, Boston MA 02115</p>
+      </div>
+    </footer>
+  `;
+  
+  // Navigation
+  document.querySelectorAll('nav a').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+      document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+}
+
+function changeMonth(delta) {
+  currentMonth = Math.max(0, Math.min(3, currentMonth + delta));
+  document.getElementById('cal-month-title').textContent = months[currentMonth].name;
+  document.getElementById('calendar-grid').innerHTML = renderCalendar(currentMonth);
+}
+
+render();
+</script>
+</body>
+</html>
