@@ -18,11 +18,9 @@ const COURSE_CONFIG = {
   // BASIC INFO
   // ─────────────────────────────────────────────────────────────────────────────
   code: "PHYS-7335",
-  title: "Modeling Dynamical Systems on Complex Networks",
+  title: "Modeling Dynamical Processes on Complex Networks",
   semester: "Spring 2026",
-  credits: 4,
   meetingTime: "Mon & Thu 11:45am–1:25pm",
-  location: "TBD", // Update with room number
   
   // ─────────────────────────────────────────────────────────────────────────────
   // INSTRUCTORS
@@ -31,22 +29,32 @@ const COURSE_CONFIG = {
     {
       name: "Dr. Alessandro Vespignani",
       initials: "AV",
-      role: "Sternberg Family Distinguished Professor",
-      affiliation: "Director, Network Science Institute",
-      email: "a.vespignani@northeastern.edu"
     },
     {
       name: "Dr. Jessica Davis",
-      initials: "JD", 
-      role: "Research Assistant Professor",
-      affiliation: "Computational Epidemiology",
-      email: "jes.davis@northeastern.edu"
+      initials: "JD",
     }
   ],
-  
+
   guestLecturers: [
-    { name: "Dr. Nicolò Gozzi", topic: "Temporal Networks & Activity-Driven Models" },
-    { name: "Dr. Guillaume St-Onge", topic: "Probability Generating Functions" }
+  { name: "TBD", topic:"TBD" }],
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // TOPICS COVERED
+  // ─────────────────────────────────────────────────────────────────────────────
+  topicsCovered: [
+    "Random Walks",
+    "Epidemic Modeling",
+    "Social Contagion and Collective Behavior",
+    "Reaction Diffusion Processes",
+    "Approximate Bayesian Computation",
+    "Probability Generating Functions"
+  ],
+
+  potentialTopics: [
+    "Higher-Order Networks",
+    "Temporal Networks and Contagion Processes",
+    "TBD"
   ],
 
   // ─────────────────────────────────────────────────────────────────────────────
@@ -58,7 +66,7 @@ const COURSE_CONFIG = {
     {
       type: "week",
       num: 1,
-      dates: "Jan 8, 12",
+      dates: "Thu Jan 8",
       topic: "Networks Review",
       description: "Graph theory fundamentals, network metrics, degree distributions, random graphs",
       readings: [
@@ -69,163 +77,38 @@ const COURSE_CONFIG = {
     {
       type: "week",
       num: 2,
-      dates: "Jan 15, 16",
-      topic: "Random Walks on Networks",
+      dates: "Mon Jan 12, Thu Jan 15",
+      topic: "Networks Review (continued) & Random Walks on Networks",
       description: "Deterministic vs. stochastic models, degree block models",
       readings: [
-        { text: "Textbook: Chapter 8 (§8.1–8.2)", url: null },
-        { text: "Noh & Rieger: Random walks on networks", url: "https://arxiv.org/abs/cond-mat/0406566" }
+        { text: "Textbook: Chapters 1–3, Chapter 8", url: null },
       ]
     },
-    { type: "holiday", dates: "Jan 19", title: "🇺🇸 MLK Day — No Class" },
-    
+    { type: "holiday", dates: "Mon Jan 19", title: "🇺🇸 MLK Day — No Class" },
     { type: "header", title: "Part II: Compartmental Modeling" },
     {
       type: "week",
       num: 3,
-      dates: "Jan 22, 26",
-      topic: "Introduction to Compartmental Models",
+      dates: "Thu Jan 22",
+      topic: "Random Walks on Networks (continued) & Introduction to Compartmental Models",
       description: "SIR/SIS models, homogeneous mixing, reproductive number",
       readings: [
-        { text: "Textbook: Chapters 9–10", url: null },
-        { text: "Kermack & McKendrick (1927)", url: "https://royalsocietypublishing.org/doi/10.1098/rspa.1927.0118" }
+        { text: "Textbook: Chapter 9", url: null },
+        { text: "Kermack & McKendrick (1927)", url: "https://royalsocietypublishing.org/doi/10.1098/rspa.1927.0118" },
+        { text: "Lecture Notes", url: "https://www.mobs-lab.org/uploads/6/7/8/7/6787877/lecturenotes.pdf"}
       ]
     },
     {
       type: "week",
       num: 4,
-      dates: "Jan 29, Feb 2",
-      topic: "Epidemic Threshold & Rumor Models",
-      description: "Critical phenomena, basic reproduction number, information spreading",
+      dates: "Mon Jan 26",
+      topic: "Compartmental Models & Epidemic Thresholds",
+      description: "Basic reproduction number R₀, epidemic dynamics",
       readings: [
-        { text: "Textbook: Chapter 10", url: null },
-        { text: "Moreno et al.: Dynamics of rumor spreading", url: "https://www.sciencedirect.com/science/article/abs/pii/S0096300302009035" }
+        { text: "Textbook: Chapter 9", url: null },
       ]
     },
-    {
-      type: "week",
-      num: 5,
-      dates: "Feb 5, 9",
-      topic: "Network Modeling",
-      description: "Individual-based models, adjacency matrix approaches, degree block approximation",
-      readings: [
-        { text: "Textbook: Chapter 9 (§9.1–9.2)", url: null }
-      ]
-    },
-    {
-      type: "week",
-      num: 6,
-      dates: "Feb 12, 16",
-      topic: "Epidemic Interventions & Review",
-      description: "Vaccination strategies, containment measures. Feb 12: Midterm Review",
-      readings: [
-        { text: "Pastor-Satorras & Vespignani: Immunization of complex networks", url: "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.65.036104" }
-      ]
-    },
-    { type: "holiday", dates: "Feb 16", title: "🇺🇸 Presidents' Day — No Class" },
-    {
-      type: "week",
-      num: 7,
-      dates: "Feb 19, 23",
-      topic: "Assignment 1 Presentations",
-      description: "Mini-presentations on network properties affecting contagion",
-      readings: []
-    },
-    
-    { type: "header", title: "Part III: Heterogeneous Networks & Advanced Topics" },
-    {
-      type: "week",
-      num: 8,
-      dates: "Feb 26, Mar 2",
-      topic: "Epidemic Thresholds in Heterogeneous Networks",
-      description: "Scale-free networks, absence of epidemic threshold",
-      readings: [
-        { text: "Textbook: Chapter 9 (§9.2–9.3)", url: null },
-        { text: "Pastor-Satorras & Vespignani: Epidemic spreading in SF networks", url: "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.86.3200" }
-      ]
-    },
-    { type: "holiday", dates: "Mar 2–8", title: "🌴 Spring Break — No Class" },
-    {
-      type: "week",
-      num: 9,
-      dates: "Mar 9, 12",
-      topic: "Temporal Networks",
-      description: "Guest: Dr. Nicolò Gozzi — Activity-driven networks, time-varying contact patterns",
-      readings: [
-        { text: "Perra et al.: Activity driven modeling", url: "https://www.nature.com/articles/srep00469" },
-        { text: "GitHub: Temporal networks code", url: "https://github.com/ngozzi/temporal-networks" }
-      ]
-    },
-    {
-      type: "week",
-      num: 10,
-      dates: "Mar 16, 19",
-      topic: "Model Fitting: ABC Methods",
-      description: "Approximate Bayesian Computation, parameter inference",
-      readings: [
-        { text: "Toni et al.: ABC for epidemic models", url: "https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002803" }
-      ]
-    },
-    {
-      type: "week",
-      num: 11,
-      dates: "Mar 23, 26",
-      topic: "Probability Generating Functions",
-      description: "Guest: Dr. Guillaume St-Onge",
-      readings: [
-        { text: "PGF Tutorial Notes", url: "https://cosmo-notes.github.io/pgfunk/chapters/index.html" },
-        { text: "Newman: Spread on random networks", url: "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.66.016128" }
-      ]
-    },
-    {
-      type: "week",
-      num: 12,
-      dates: "Mar 30, Apr 2",
-      topic: "Reaction-Diffusion Processes",
-      description: "Metapopulation models, invasion threshold, GLEaM",
-      readings: [
-        { text: "Pastor-Satorras et al.: Epidemic processes review (§IXB)", url: "https://journals.aps.org/rmp/abstract/10.1103/RevModPhys.87.925" },
-        { text: "Colizza & Vespignani: Metapopulation models", url: "https://arxiv.org/abs/0706.3647" }
-      ]
-    },
-    {
-      type: "week",
-      num: 13,
-      dates: "Apr 6, 9",
-      topic: "Higher-Order Networks",
-      description: "Simplicial complexes, hypergraphs, group interactions",
-      readings: [
-        { text: "Iacopini et al.: Simplicial models of social contagion", url: "https://www.nature.com/articles/s41467-019-10431-6" },
-        { text: "de Arruda et al.: Contagion on higher-order networks", url: "https://www.nature.com/articles/s42254-024-00733-0" }
-      ]
-    },
-    {
-      type: "week",
-      num: 14,
-      dates: "Apr 13, 16",
-      topic: "Social Contagion & Collective Behavior",
-      description: "Opinion dynamics, flocking models, complex contagion",
-      readings: [
-        { text: "Centola: Complex contagion & network structure", url: "https://www.science.org/doi/10.1126/science.aap9559" }
-      ]
-    },
-    { type: "holiday", dates: "Apr 20", title: "🏃 Patriots' Day — No Class" },
-    {
-      type: "week",
-      num: 15,
-      dates: "Apr 23",
-      topic: "Final Presentations Begin",
-      description: "",
-      readings: []
-    },
-    {
-      type: "week",
-      num: "Finals",
-      dates: "Apr 27–May 2",
-      topic: "Finals Week — Presentations Continue",
-      description: "",
-      readings: []
-    }
+    { type: "holiday", dates: "Thur Jan 29", title: "Alex and Jessica out of town- Make-Up Class TBD" },
   ],
 
   // ─────────────────────────────────────────────────────────────────────────────
@@ -233,113 +116,31 @@ const COURSE_CONFIG = {
   // ─────────────────────────────────────────────────────────────────────────────
   assignments: [
     {
-      title: "Assignment 1: Mini-Presentation",
-      weight: "30%",
-      due: "Week 7",
-      description: "10–15 min presentation on a network property affecting contagion (clustering, assortativity, or community structure). Include literature review and analytical exploration."
-    },
-    {
-      title: "Assignment 2: PGF Problem Set", 
-      weight: "20%",
-      due: "Week 12",
-      description: "In-class written assessment on probability generating functions and their applications to network epidemiology."
+      title: "Mid-Semester Assignments",
+      items: [
+      "Network Properties Mini Presentation",
+      "Written Assessment"
+      ]
     },
     {
       title: "Final Project",
-      weight: "50%",
-      due: "Finals Week",
-      description: "Independent research project applying course concepts. Presentations in Week 15 and Finals Week."
+      items: ["TBD"]
     }
   ],
-
-  // ─────────────────────────────────────────────────────────────────────────────
-  // PROJECT TOPICS - Add or remove as desired
-  // ─────────────────────────────────────────────────────────────────────────────
-  projectTopics: [
-    "Higher-Order Network Models",
-    "Opinion Dynamics", 
-    "Flocking & Collective Behavior",
-    "Ecological Networks",
-    "Brain Networks",
-    "Synchronization",
-    "Evolutionary Game Theory",
-    "Multiplex Networks",
-    "Adaptive Networks"
-  ],
-
-  // ─────────────────────────────────────────────────────────────────────────────
-  // RESOURCES
-  // ─────────────────────────────────────────────────────────────────────────────
-  tools: [
-    { name: "GLEaMviz Simulator", url: "http://www.gleamviz.org/simulator/client/" },
-    { name: "Network Science Book", url: "https://networksciencebook.com" },
-    { name: "Temporal Networks Code", url: "https://github.com/ngozzi/temporal-networks" },
-    { name: "PGF Tutorial", url: "https://cosmo-notes.github.io/pgfunk/chapters/index.html" }
-  ],
-  
-  references: {
-    "Foundational Papers": [
-      { authors: "Pastor-Satorras R, Vespignani A", year: 2001, title: "Epidemic spreading in scale-free networks", journal: "Phys Rev Lett 86:3200", url: "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.86.3200" },
-      { authors: "Pastor-Satorras R, Vespignani A", year: 2001, title: "Epidemic dynamics and endemic states in complex networks", journal: "Phys Rev E 63:066117", url: "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.63.066117" },
-      { authors: "Newman MEJ", year: 2002, title: "Spread of epidemic disease on networks", journal: "Phys Rev E 66:016128", url: "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.66.016128" },
-      { authors: "Keeling MJ, Eames KTD", year: 2005, title: "Networks and epidemic models", journal: "J R Soc Interface 2:295-307", url: "https://royalsocietypublishing.org/doi/10.1098/rsif.2005.0051" }
-    ],
-    "Review Articles": [
-      { authors: "Pastor-Satorras R, Castellano C, Van Mieghem P, Vespignani A", year: 2015, title: "Epidemic processes in complex networks", journal: "Rev Mod Phys 87:925", url: "https://journals.aps.org/rmp/abstract/10.1103/RevModPhys.87.925" },
-      { authors: "Barrat A, Barthélemy M, Vespignani A", year: 2008, title: "Dynamical Processes on Complex Networks", journal: "Cambridge University Press", url: "https://www.cambridge.org/core/books/dynamical-processes-on-complex-networks/4E3540D16BBF7822150E861E33E29D9D" },
-      { authors: "Kiss IZ, Miller JC, Simon PL", year: 2017, title: "Mathematics of Epidemics on Networks", journal: "Springer", url: "https://link.springer.com/book/10.1007/978-3-319-50806-1" }
-    ],
-    "Metapopulation & Mobility": [
-      { authors: "Colizza V, Vespignani A", year: 2007, title: "Invasion threshold in heterogeneous metapopulation networks", journal: "Phys Rev Lett 99:148701", url: "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.99.148701" },
-      { authors: "Colizza V, Vespignani A", year: 2008, title: "Epidemic modeling in metapopulation systems with heterogeneous coupling pattern", journal: "J Theor Biol 251:450-467", url: "https://www.sciencedirect.com/science/article/pii/S0022519307005899" },
-      { authors: "Balcan D, Colizza V, Gonçalves B, et al.", year: 2009, title: "Multiscale mobility networks and the spatial spreading of infectious diseases", journal: "PNAS 106:21484", url: "https://www.pnas.org/content/106/51/21484" },
-      { authors: "Balcan D, Vespignani A", year: 2011, title: "Phase transitions in contagion processes mediated by recurrent mobility patterns", journal: "Nat Phys 7:581-586", url: "https://www.nature.com/articles/nphys1944" },
-      { authors: "Brockmann D, Helbing D", year: 2013, title: "The hidden geometry of complex, network-driven contagion phenomena", journal: "Science 342:1337-1342", url: "https://www.science.org/doi/10.1126/science.1245200" }
-    ],
-    "Temporal Networks": [
-      { authors: "Perra N, Gonçalves B, Pastor-Satorras R, Vespignani A", year: 2012, title: "Activity driven modeling of time varying networks", journal: "Sci Rep 2:469", url: "https://www.nature.com/articles/srep00469" },
-      { authors: "Holme P, Saramäki J", year: 2012, title: "Temporal networks", journal: "Phys Rep 519:97-125", url: "https://www.sciencedirect.com/science/article/pii/S0370157312000841" },
-      { authors: "Liu S, Perra N, Karsai M, Vespignani A", year: 2014, title: "Controlling contagion processes in activity driven networks", journal: "Phys Rev Lett 112:118702", url: "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.112.118702" },
-      { authors: "Starnini M, Pastor-Satorras R", year: 2014, title: "Temporal percolation in activity-driven networks", journal: "Phys Rev E 89:032807", url: "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.89.032807" }
-    ],
-    "Higher-Order Networks": [
-      { authors: "Iacopini I, Petri G, Barrat A, Latora V", year: 2019, title: "Simplicial models of social contagion", journal: "Nat Commun 10:2485", url: "https://www.nature.com/articles/s41467-019-10431-6" },
-      { authors: "de Arruda GF, Petri G, Rodriguez PM, Moreno Y", year: 2024, title: "Contagion dynamics on higher-order networks", journal: "Nat Rev Phys", url: "https://www.nature.com/articles/s42254-024-00733-0" },
-      { authors: "St-Onge G, Sun H, Allard A, et al.", year: 2022, title: "Influential groups for seeding and sustaining nonlinear contagion in heterogeneous hypergraphs", journal: "Commun Phys 5:25", url: "https://www.nature.com/articles/s42005-021-00788-w" },
-      { authors: "Battiston F, Cencetti G, Iacopini I, et al.", year: 2020, title: "Networks beyond pairwise interactions: Structure and dynamics", journal: "Phys Rep 874:1-92", url: "https://www.sciencedirect.com/science/article/pii/S0370157320302489" }
-    ],
-    "Interventions & Control": [
-      { authors: "Pastor-Satorras R, Vespignani A", year: 2002, title: "Immunization of complex networks", journal: "Phys Rev E 65:036104", url: "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.65.036104" },
-      { authors: "Cohen R, Havlin S, ben-Avraham D", year: 2003, title: "Efficient immunization strategies for computer networks and populations", journal: "Phys Rev Lett 91:247901", url: "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.91.247901" },
-      { authors: "Holme P, Kim BJ, Yoon CN, Han SK", year: 2002, title: "Attack vulnerability of complex networks", journal: "Phys Rev E 65:056109", url: "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.65.056109" }
-    ],
-    "Information & Social Contagion": [
-      { authors: "Centola D, Macy M", year: 2007, title: "Complex contagions and the weakness of long ties", journal: "Am J Sociol 113:702-734", url: "https://www.journals.uchicago.edu/doi/10.1086/521848" },
-      { authors: "Centola D", year: 2010, title: "The spread of behavior in an online social network experiment", journal: "Science 329:1194-1197", url: "https://www.science.org/doi/10.1126/science.1185231" },
-      { authors: "Granell C, Gómez S, Arenas A", year: 2013, title: "Dynamical interplay between awareness and epidemic spreading in multiplex networks", journal: "Phys Rev Lett 111:128701", url: "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.111.128701" }
-    ]
-  },
 
   // ─────────────────────────────────────────────────────────────────────────────
   // CALENDAR - Important dates (class days are auto-generated from schedule)
   // Format: "YYYY-MM-DD": { type: "holiday"|"break"|"event", label: "..." }
   // ─────────────────────────────────────────────────────────────────────────────
   calendarEvents: {
-    "2026-01-19": { type: "holiday", label: "MLK Day" },
-    "2026-02-16": { type: "holiday", label: "Presidents'" },
-    "2026-03-02": { type: "break", label: "Break" },
-    "2026-03-03": { type: "break", label: "Break" },
-    "2026-03-04": { type: "break", label: "Break" },
-    "2026-03-05": { type: "break", label: "Break" },
-    "2026-03-06": { type: "break", label: "Break" },
-    "2026-03-07": { type: "break", label: "Break" },
-    "2026-03-08": { type: "break", label: "Break" },
-    "2026-04-20": { type: "holiday", label: "Patriots'" }
+    "2026-01-19": { type: "holiday", label: "No Class" },
+    "2026-01-29": { type: "holiday", label: "No Class" },
+
   },
   
   // Class days (Mon=1, Thu=4) - semester start/end
   semesterStart: "2026-01-08",
-  semesterEnd: "2026-04-23",
+  semesterEnd: "2026-01-31",
   classDays: [1, 4] // Monday and Thursday
 };
 
@@ -406,37 +207,30 @@ nav {
   position: sticky;
   top: 0;
   z-index: 100;
-  border-bottom: 1px solid var(--border);
 }
-nav ul { list-style: none; display: flex; gap: 8px; padding: 12px 0; overflow-x: auto; }
+nav ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px 0;
+}
 nav a {
   color: var(--muted);
   text-decoration: none;
   padding: 8px 16px;
-  border-radius: 8px;
+  border-radius: 20px;
   font-size: 0.9rem;
   font-weight: 500;
   transition: all 0.2s;
-  white-space: nowrap;
 }
 nav a:hover, nav a.active { background: var(--teal); color: var(--primary); }
 
+main { padding-bottom: 40px; }
 section { padding: 60px 0; border-bottom: 1px solid var(--border); }
-h2 {
-  font-size: 1.8rem;
-  margin-bottom: 24px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-h2::before {
-  content: '';
-  width: 4px;
-  height: 28px;
-  background: var(--teal);
-  border-radius: 2px;
-}
-h3 { font-size: 1.2rem; margin-bottom: 12px; color: var(--teal); }
+section:last-of-type { border-bottom: none; }
+h2 { font-size: 1.8rem; margin-bottom: 24px; color: #fff; }
+h3 { font-size: 1.2rem; color: var(--teal); margin-bottom: 12px; }
 
 .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
 .card {
@@ -444,20 +238,19 @@ h3 { font-size: 1.2rem; margin-bottom: 12px; color: var(--teal); }
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 24px;
-  transition: transform 0.2s, border-color 0.2s;
+  transition: all 0.2s;
 }
-.card:hover { transform: translateY(-4px); border-color: var(--teal); }
-.card h4 { font-size: 1.1rem; margin-bottom: 8px; }
+.card:hover { border-color: var(--teal); transform: translateY(-2px); }
+.card h4 { color: #fff; margin-bottom: 8px; }
 .card p { color: var(--muted); font-size: 0.9rem; }
-.card a { color: var(--teal); text-decoration: none; }
-.card a:hover { text-decoration: underline; }
+.card a { color: var(--teal); }
 
-.instructor-card { display: flex; gap: 16px; align-items: flex-start; }
+.instructor-card { display: flex; align-items: center; gap: 16px; }
 .instructor-avatar {
   width: 60px;
   height: 60px;
-  border-radius: 50%;
   background: linear-gradient(135deg, var(--teal), var(--highlight));
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -468,141 +261,94 @@ h3 { font-size: 1.2rem; margin-bottom: 12px; color: var(--teal); }
 
 .schedule-container { overflow-x: auto; }
 table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
-th {
-  text-align: left;
-  padding: 16px;
-  background: rgba(11, 204, 222, 0.15);
+th, td { padding: 14px 16px; text-align: left; border-bottom: 1px solid var(--border); }
+th { background: var(--highlight); color: var(--teal); font-weight: 600; }
+tr:hover { background: rgba(255,255,255,0.02); }
+.section-header td {
+  background: rgba(11, 204, 222, 0.1);
+  color: var(--teal);
   font-weight: 600;
-  white-space: nowrap;
+  font-size: 0.95rem;
 }
-td {
-  padding: 16px;
-  border-bottom: 1px solid var(--border);
-  vertical-align: top;
-}
-tr:hover td { background: rgba(255,255,255,0.02); }
+.holiday-row td { color: var(--muted); font-style: italic; }
 .week-num {
-  background: var(--teal);
-  color: var(--primary);
+  background: var(--highlight);
+  color: var(--teal);
   padding: 4px 10px;
   border-radius: 12px;
   font-weight: 600;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
 }
-.section-header td {
-  background: rgba(11, 204, 222, 0.1);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-size: 0.8rem;
-  color: var(--teal);
-}
-.holiday-row td {
-  background: rgba(11, 204, 222, 0.05);
-  color: var(--teal);
-  font-style: italic;
-}
-.reading-list { margin: 0; padding-left: 16px; color: var(--muted); font-size: 0.85rem; }
-.reading-list li { margin-bottom: 4px; }
-.reading-list a { color: #64b5f6; }
+.reading-list { list-style: none; padding: 0; margin: 0; }
+.reading-list li { padding: 4px 0; }
+.reading-list a { color: var(--teal); text-decoration: none; font-size: 0.85rem; }
+.reading-list a:hover { text-decoration: underline; }
 
-/* Calendar Styles */
+.calendar-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
 .calendar-wrapper {
   background: var(--card-bg);
   border: 1px solid var(--border);
-  border-radius: 16px;
+  border-radius: 12px;
   padding: 24px;
 }
 .calendar-header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-.calendar-header h3 {
-  margin: 0;
-  font-size: 1.3rem;
-  color: var(--text);
-}
-.cal-nav-btn {
-  background: var(--highlight);
-  border: 1px solid var(--border);
-  color: var(--text);
-  width: 40px;
-  height: 40px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 1.2rem;
-  transition: all 0.2s;
-  display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
 }
-.cal-nav-btn:hover { background: var(--teal); color: var(--primary); }
-.calendar-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 4px;
-}
+.calendar-header h3 { color: #fff; margin: 0; }
+.calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
 .cal-header-cell {
   text-align: center;
-  padding: 8px 4px;
-  font-weight: 600;
   font-size: 0.75rem;
   color: var(--muted);
+  padding: 8px 0;
+  font-weight: 600;
 }
 .cal-day {
   aspect-ratio: 1;
-  padding: 4px;
-  font-size: 0.8rem;
-  border-radius: 8px;
-  background: rgba(255,255,255,0.02);
-  border: 1px solid transparent;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  position: relative;
+  background: rgba(255,255,255,0.02);
 }
 .cal-day.empty { background: transparent; }
-.cal-day.class-day { background: rgba(11, 204, 222, 0.2); border-color: var(--teal); }
-.cal-day.holiday-day { background: rgba(255, 193, 7, 0.2); border-color: #ffc107; }
-.cal-day.break-day { background: rgba(76, 175, 80, 0.2); border-color: #4caf50; }
-.cal-day.today { box-shadow: 0 0 0 2px var(--teal); }
-.cal-day-num { font-weight: 600; font-size: 0.85rem; }
-.cal-day-label { font-size: 0.55rem; color: var(--muted); margin-top: 1px; text-align: center; line-height: 1.1; }
-.cal-legend { display: flex; gap: 16px; margin-top: 20px; font-size: 0.8rem; flex-wrap: wrap; justify-content: center; }
-.cal-legend-item { display: flex; align-items: center; gap: 6px; }
+.cal-day-num { font-weight: 500; }
+.cal-day-label { font-size: 0.6rem; color: var(--muted); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 90%; }
+.cal-day.class-day { background: rgba(11, 204, 222, 0.15); border: 1px solid rgba(11, 204, 222, 0.3); }
+.cal-day.class-day.clickable { cursor: pointer; }
+.cal-day.class-day:hover { background: rgba(11, 204, 222, 0.25); }
+.cal-day.class-day.selected { background: var(--teal); color: var(--primary); }
+.cal-day.class-day.selected .cal-day-label { color: var(--primary); }
+.cal-day.class-day.next-class { box-shadow: 0 0 0 2px var(--teal); }
+.cal-day.holiday-day { background: rgba(255, 193, 7, 0.15); border: 1px solid rgba(255, 193, 7, 0.3); }
+.cal-day.break-day { background: rgba(76, 175, 80, 0.15); border: 1px solid rgba(76, 175, 80, 0.3); }
+.cal-legend { display: flex; gap: 16px; margin-top: 16px; justify-content: center; flex-wrap: wrap; }
+.cal-legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.75rem; color: var(--muted); }
 .cal-legend-dot { width: 12px; height: 12px; border-radius: 4px; }
 
-.calendar-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
 .calendar-detail-panel {
   background: var(--card-bg);
   border: 1px solid var(--border);
-  border-radius: 16px;
+  border-radius: 12px;
   padding: 24px;
-  min-height: 300px;
+  min-height: 200px;
 }
-.calendar-detail-panel h3 { margin-bottom: 16px; color: var(--teal); }
-.detail-date { font-size: 0.9rem; color: var(--muted); margin-bottom: 12px; }
-.detail-topic { font-size: 1.3rem; font-weight: 600; margin-bottom: 8px; }
-.detail-description { color: var(--muted); margin-bottom: 16px; line-height: 1.6; }
-.detail-readings h4 { font-size: 0.9rem; color: var(--teal); margin-bottom: 8px; }
+.detail-date { color: var(--muted); font-size: 0.9rem; margin-bottom: 8px; }
+.detail-topic { font-size: 1.3rem; font-weight: 600; color: #fff; margin-bottom: 12px; }
+.detail-description { color: var(--text); margin-bottom: 16px; }
+.detail-readings h4 { color: var(--teal); font-size: 0.9rem; margin-bottom: 8px; }
 .detail-readings ul { list-style: none; padding: 0; }
-.detail-readings li { padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
-.detail-readings li:last-child { border-bottom: none; }
-.detail-readings a { color: #64b5f6; text-decoration: none; }
+.detail-readings li { padding: 4px 0; font-size: 0.9rem; }
+.detail-readings a { color: var(--teal); text-decoration: none; }
 .detail-readings a:hover { text-decoration: underline; }
-.cal-day.clickable { cursor: pointer; transition: all 0.2s; }
-.cal-day.clickable:hover { transform: scale(1.1); z-index: 10; }
-.cal-day.selected { box-shadow: 0 0 0 2px var(--teal); background: rgba(11, 204, 222, 0.3) !important; }
-.cal-day.next-class { animation: pulse 2s infinite; }
-@keyframes pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(11, 204, 222, 0.4); }
-  50% { box-shadow: 0 0 0 4px rgba(11, 204, 222, 0.1); }
-}
 .next-badge {
-  display: inline-block;
   background: var(--teal);
   color: var(--primary);
   font-size: 0.7rem;
@@ -693,6 +439,11 @@ tr:hover td { background: rgba(255,255,255,0.02); }
 }
 .topic-tag:hover { border-color: var(--teal); }
 
+.topic-tag.potential {
+  background: transparent;
+  border-style: dashed;
+}
+
 footer {
   padding: 40px 0;
   text-align: center;
@@ -747,31 +498,10 @@ const classDays = getClassDays();
 // Class details by date
 const classDetails = {
   "2026-01-08": { week: 1, topic: "Networks Review", desc: "Graph theory fundamentals, network metrics, degree distributions, random graphs", readings: [{text:"Textbook: Chapters 1–3"},{text:"Barabási: Network Science (Ch. 1-3)",url:"https://networksciencebook.com"}]},
-  "2026-01-12": { week: 1, topic: "Networks Review", desc: "Small-world networks, clustering, network models", readings: [{text:"Textbook: Chapters 1–3"}]},
-  "2026-01-15": { week: 2, topic: "Random Walks on Networks", desc: "Deterministic vs. stochastic models, degree block models", readings: [{text:"Textbook: Chapter 8 (§8.1–8.2)"},{text:"Noh & Rieger: Random walks on networks",url:"https://arxiv.org/abs/cond-mat/0406566"}]},
-  "2026-01-22": { week: 3, topic: "Introduction to Compartmental Models", desc: "SIR/SIS models, homogeneous mixing, mass action", readings: [{text:"Textbook: Chapters 9–10"},{text:"Kermack & McKendrick (1927)",url:"https://royalsocietypublishing.org/doi/10.1098/rspa.1927.0118"}]},
-  "2026-01-26": { week: 3, topic: "Compartmental Models", desc: "Basic reproduction number R₀, epidemic dynamics", readings: [{text:"Textbook: Chapters 9–10"}]},
-  "2026-01-29": { week: 4, topic: "Epidemic Threshold & Rumor Models", desc: "Critical phenomena, epidemic threshold", readings: [{text:"Textbook: Chapter 10"}]},
-  "2026-02-02": { week: 4, topic: "Rumor Models", desc: "Maki-Thompson model, information spreading dynamics", readings: [{text:"Moreno et al.: Dynamics of rumor spreading",url:"https://www.sciencedirect.com/science/article/abs/pii/S0096300302009035"}]},
-  "2026-02-05": { week: 5, topic: "Network Modeling", desc: "Individual-based models, adjacency matrix approaches", readings: [{text:"Textbook: Chapter 9 (§9.1–9.2)"}]},
-  "2026-02-09": { week: 5, topic: "Network Modeling", desc: "Degree block approximation, mean-field approaches", readings: [{text:"Textbook: Chapter 9 (§9.1–9.2)"}]},
-  "2026-02-12": { week: 6, topic: "Epidemic Interventions & Review", desc: "Vaccination strategies, targeted vs. random immunization, midterm review", readings: [{text:"Pastor-Satorras & Vespignani: Immunization of complex networks",url:"https://journals.aps.org/pre/abstract/10.1103/PhysRevE.65.036104"}]},
-  "2026-02-19": { week: 7, topic: "Assignment 1 Presentations", desc: "Student mini-presentations on network properties affecting contagion", readings: []},
-  "2026-02-23": { week: 7, topic: "Assignment 1 Presentations", desc: "Student mini-presentations continued", readings: []},
-  "2026-02-26": { week: 8, topic: "Heterogeneous Networks", desc: "Scale-free networks, absence of epidemic threshold, degree correlations", readings: [{text:"Textbook: Chapter 9 (§9.2–9.3)"},{text:"Pastor-Satorras & Vespignani: Epidemic spreading in SF networks",url:"https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.86.3200"}]},
-  "2026-03-09": { week: 9, topic: "Temporal Networks", desc: "Guest: Dr. Nicolò Gozzi — Activity-driven networks, time-varying contacts", readings: [{text:"Perra et al.: Activity driven modeling",url:"https://www.nature.com/articles/srep00469"},{text:"GitHub: Temporal networks code",url:"https://github.com/ngozzi/temporal-networks"}]},
-  "2026-03-12": { week: 9, topic: "Temporal Networks", desc: "Burstiness, epidemic threshold on temporal networks", readings: [{text:"Perra et al.: Activity driven modeling",url:"https://www.nature.com/articles/srep00469"}]},
-  "2026-03-16": { week: 10, topic: "Model Fitting: ABC Methods", desc: "Approximate Bayesian Computation, parameter inference", readings: [{text:"Toni et al.: ABC for epidemic models",url:"https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002803"}]},
-  "2026-03-19": { week: 10, topic: "Model Fitting: ABC Methods", desc: "Likelihood-free methods, practical implementation", readings: [{text:"Toni et al.: ABC for epidemic models",url:"https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002803"}]},
-  "2026-03-23": { week: 11, topic: "Probability Generating Functions", desc: "Guest: Dr. Guillaume St-Onge — PGFs for degree distributions", readings: [{text:"PGF Tutorial Notes",url:"https://cosmo-notes.github.io/pgfunk/chapters/index.html"},{text:"Newman: Spread on random networks",url:"https://journals.aps.org/pre/abstract/10.1103/PhysRevE.66.016128"}]},
-  "2026-03-26": { week: 11, topic: "Probability Generating Functions", desc: "Outbreak size calculations, percolation on networks", readings: [{text:"PGF Tutorial Notes",url:"https://cosmo-notes.github.io/pgfunk/chapters/index.html"}]},
-  "2026-03-30": { week: 12, topic: "Reaction-Diffusion Processes", desc: "Metapopulation models, invasion threshold", readings: [{text:"Pastor-Satorras et al.: Epidemic processes review (§IXB)",url:"https://journals.aps.org/rmp/abstract/10.1103/RevModPhys.87.925"},{text:"Colizza & Vespignani: Metapopulation models",url:"https://arxiv.org/abs/0706.3647"}]},
-  "2026-04-02": { week: 12, topic: "Reaction-Diffusion Processes", desc: "GLEaM model, mobility networks, global spreading", readings: [{text:"Colizza & Vespignani: Metapopulation models",url:"https://arxiv.org/abs/0706.3647"}]},
-  "2026-04-06": { week: 13, topic: "Higher-Order Networks", desc: "Simplicial complexes, hypergraphs, group interactions", readings: [{text:"Iacopini et al.: Simplicial models of social contagion",url:"https://www.nature.com/articles/s41467-019-10431-6"},{text:"de Arruda et al.: Contagion on higher-order networks",url:"https://www.nature.com/articles/s42254-024-00733-0"}]},
-  "2026-04-09": { week: 13, topic: "Higher-Order Networks", desc: "Bistability, explosive transitions, hysteresis", readings: [{text:"de Arruda et al.: Contagion on higher-order networks",url:"https://www.nature.com/articles/s42254-024-00733-0"}]},
-  "2026-04-13": { week: 14, topic: "Social Contagion & Collective Behavior", desc: "Complex contagion, threshold models", readings: [{text:"Centola: Complex contagion & network structure",url:"https://www.science.org/doi/10.1126/science.aap9559"}]},
-  "2026-04-16": { week: 14, topic: "Social Contagion & Collective Behavior", desc: "Opinion dynamics, flocking models", readings: [{text:"Centola: Complex contagion & network structure",url:"https://www.science.org/doi/10.1126/science.aap9559"}]},
-  "2026-04-23": { week: 15, topic: "Final Presentations", desc: "Student project presentations begin", readings: []},
+  "2026-01-12": { week: 2, topic: "Networks Review (continued) & Random Walks on Networks", desc: "Deterministic vs. stochastic models, degree block models", readings: [{text:"Textbook: Chapters 1–3, Chapter 8"}]},
+  "2026-01-15": { week: 2, topic: "Networks Review (continued) & Random Walks on Networks", desc: "Deterministic vs. stochastic models, degree block models", readings: [{text:"Textbook: Chapters 1–3, Chapter 8"}]},
+  "2026-01-22": { week: 3, topic: "Random Walks on Networks (continued) & Introduction to Compartmental Models", desc: "SIR/SIS models, homogeneous mixing, reproductive number", readings: [{text:"Textbook: Chapter 9"},{text:"Kermack & McKendrick (1927)",url:"https://royalsocietypublishing.org/doi/10.1098/rspa.1927.0118"},{text:"Lecture Notes",url:"https://www.mobs-lab.org/uploads/6/7/8/7/6787877/lecturenotes.pdf"}]},
+  "2026-01-26": { week: 4, topic: "Compartmental Models & Epidemic Thresholds", desc: "Basic reproduction number R₀, epidemic dynamics", readings: [{text:"Textbook: Chapter 9"}]},
 };
 
 // Find next upcoming class
@@ -787,17 +517,11 @@ function getNextClass() {
 let selectedDate = null;
 let nextClassDate = getNextClass();
 
-// Calendar state
-let currentMonth = 0; // January 2026
-const months = [
-  { year: 2026, month: 0, name: "January 2026" },
-  { year: 2026, month: 1, name: "February 2026" },
-  { year: 2026, month: 2, name: "March 2026" },
-  { year: 2026, month: 3, name: "April 2026" }
-];
+// Calendar state - just January
+const currentMonth = { year: 2026, month: 0, name: "January 2026" };
 
-function renderCalendar(monthIndex) {
-  const m = months[monthIndex];
+function renderCalendar() {
+  const m = currentMonth;
   const firstDay = new Date(m.year, m.month, 1);
   const lastDay = new Date(m.year, m.month + 1, 0);
   const startPad = firstDay.getDay();
@@ -836,7 +560,7 @@ function renderCalendar(monthIndex) {
 
 function selectDate(dateStr) {
   selectedDate = dateStr;
-  document.getElementById('calendar-grid').innerHTML = renderCalendar(currentMonth);
+  document.getElementById('calendar-grid').innerHTML = renderCalendar();
   showClassDetail(dateStr);
 }
 
@@ -877,14 +601,6 @@ function render() {
             <svg class="meta-icon" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/></svg>
             ${C.meetingTime}
           </div>
-          <div class="meta-item">
-            <svg class="meta-icon" fill="currentColor" viewBox="0 0 20 20"><path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838l-2.727 1.17 1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762z"/></svg>
-            ${C.credits} Credits
-          </div>
-          <div class="meta-item">
-            <svg class="meta-icon" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
-            ${C.location}
-          </div>
         </div>
       </div>
     </header>
@@ -894,10 +610,10 @@ function render() {
         <ul>
           <li><a href="#about" class="active">About</a></li>
           <li><a href="#instructors">Instructors</a></li>
-          <li><a href="#calendar">Semester Overview</a></li>
-          <li><a href="#schedule">Detailed Schedule</a></li>
+          <li><a href="#topics">Topics</a></li>
+          <li><a href="#calendar">January Overview</a></li>
+          <li><a href="#schedule">Schedule</a></li>
           <li><a href="#assignments">Assignments</a></li>
-          <li><a href="#resources">Resources</a></li>
         </ul>
       </div>
     </nav>
@@ -912,10 +628,10 @@ function render() {
           <div class="card-grid">
             <div class="card">
               <h4>📚 Textbook</h4>
-              <p><em>Dynamical Processes on Complex Networks</em><br>A. Barrat, M. Barthélemy & A. Vespignani<br>Cambridge University Press</p>
+              <p><a href="https://www.cambridge.org/core/books/dynamical-processes-on-complex-networks/D0173F07E0F05CEE9CF7A6BDAF48E9FC" target="_blank">Dynamical Processes on Complex Networks</a><br>Barrat, Barthélemy & Vespignani (2008)</p>
             </div>
             <div class="card">
-              <h4>🎯 Prerequisites</h4>
+              <h4>📋 Prerequisites</h4>
               <p>Graduate standing in Physics, Network Science, or related field. Familiarity with differential equations and probability theory.</p>
             </div>
             <div class="card">
@@ -935,7 +651,6 @@ function render() {
                 <div class="instructor-avatar">${i.initials}</div>
                 <div>
                   <h4>${i.name}</h4>
-                  <p>${i.role}<br>${i.affiliation}<br><a href="mailto:${i.email}">${i.email}</a></p>
                 </div>
               </div>
             `).join('')}
@@ -951,11 +666,47 @@ function render() {
           </div>
         </div>
       </section>
+
+      <section id="topics">
+        <div class="container">
+          <h2>Topics Covered</h2>
+          <div style="margin-bottom: 24px;">
+            ${C.topicsCovered.map(t => `<span class="topic-tag">${t}</span>`).join('')}
+          </div>
+          <h3 style="margin-top: 32px;">Potential Topics</h3>
+          <div style="margin-top: 12px;">
+            ${C.potentialTopics.map(t => `<span class="topic-tag potential">${t}</span>`).join('')}
+          </div>
+        </div>
+      </section>
       
+      <section id="calendar">
+        <div class="container">
+          <h2>January Overview</h2>
+          <div class="calendar-layout">
+            <div class="calendar-wrapper">
+              <div class="calendar-header">
+                <h3>${currentMonth.name}</h3>
+              </div>
+              <div class="calendar-grid" id="calendar-grid">
+                ${renderCalendar()}
+              </div>
+              <div class="cal-legend">
+                <div class="cal-legend-item"><div class="cal-legend-dot" style="background: rgba(11, 204, 222, 0.4);"></div> Class</div>
+                <div class="cal-legend-item"><div class="cal-legend-dot" style="background: rgba(255, 193, 7, 0.4);"></div> No Class</div>
+              </div>
+            </div>
+            <div class="calendar-detail-panel" id="calendar-detail">
+              <div class="empty-state">Click a class day to see details</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section id="schedule">
         <div class="container">
           <div class="collapsible-header" onclick="toggleSchedule()">
-            <h2>Detailed Course Schedule</h2>
+            <h2>January Schedule</h2>
             <button class="collapse-btn" id="collapse-btn">
               <span id="collapse-icon">▼</span>
             </button>
@@ -993,71 +744,16 @@ function render() {
         </div>
       </section>
       
-      <section id="calendar">
-        <div class="container">
-          <h2>Semester Overview</h2>
-          <div class="calendar-layout">
-            <div class="calendar-wrapper">
-              <div class="calendar-header">
-                <button class="cal-nav-btn" onclick="changeMonth(-1)">‹</button>
-                <h3 id="cal-month-title">${months[currentMonth].name}</h3>
-                <button class="cal-nav-btn" onclick="changeMonth(1)">›</button>
-              </div>
-              <div class="calendar-grid" id="calendar-grid">
-                ${renderCalendar(currentMonth)}
-              </div>
-              <div class="cal-legend">
-                <div class="cal-legend-item"><div class="cal-legend-dot" style="background: rgba(11, 204, 222, 0.4);"></div> Class</div>
-                <div class="cal-legend-item"><div class="cal-legend-dot" style="background: rgba(255, 193, 7, 0.4);"></div> Holiday</div>
-                <div class="cal-legend-item"><div class="cal-legend-dot" style="background: rgba(76, 175, 80, 0.4);"></div> Break</div>
-              </div>
-            </div>
-            <div class="calendar-detail-panel" id="calendar-detail">
-              <div class="empty-state">Click a class day to see details</div>
-            </div>
-          </div>
-        </div>
-      </section>
-      
       <section id="assignments">
         <div class="container">
-          <h2>Assignments & Grading</h2>
+          <h2>Assignments</h2>
           <div class="card-grid">
             ${C.assignments.map((a, i) => `
               <div class="card">
-                <h4>${['📊', '📝', '🎯'][i]} ${a.title} (${a.weight})</h4>
-                <p><strong>Due: ${a.due}</strong><br>${a.description}</p>
-              </div>
-            `).join('')}
-          </div>
-          <h3 style="margin-top: 32px;">Potential Project Topics</h3>
-          <div style="margin-top: 12px;">
-            ${C.projectTopics.map(t => `<span class="topic-tag">${t}</span>`).join('')}
-          </div>
-        </div>
-      </section>
-      
-      <section id="resources">
-        <div class="container">
-          <h2>Resources</h2>
-          <h3>Essential Tools</h3>
-          <div style="margin: 16px 0;">
-            ${C.tools.map(t => `<a href="${t.url}" target="_blank" class="resource-link">${t.name}</a>`).join('')}
-          </div>
-          <h3 style="margin-top: 24px;">References</h3>
-          <div class="references-section">
-            ${Object.entries(C.references).map(([category, papers]) => `
-              <div class="ref-category">
-                <h4>${category}</h4>
-                <ul class="ref-list">
-                  ${papers.map(p => `
-                    <li>
-                      ${p.authors} (${p.year}). 
-                      <a href="${p.url}" target="_blank">${p.title}</a>. 
-                      <span class="ref-journal">${p.journal}</span>
-                    </li>
-                  `).join('')}
-                </ul>
+                <h4>${['📝', '🎯'][i]} ${a.title}</h4>
+                ${a.items.length ? `<ul style="margin-top: 8px; padding-left: 20px; color: var(--muted); font-size: 0.9rem;">
+                  ${a.items.map(item => `<li>${item}</li>`).join('')}
+                </ul>` : ''}
               </div>
             `).join('')}
           </div>
@@ -1089,12 +785,6 @@ function render() {
   });
 }
 
-function changeMonth(delta) {
-  currentMonth = Math.max(0, Math.min(3, currentMonth + delta));
-  document.getElementById('cal-month-title').textContent = months[currentMonth].name;
-  document.getElementById('calendar-grid').innerHTML = renderCalendar(currentMonth);
-}
-
 function toggleSchedule() {
   const content = document.getElementById('schedule-content');
   const btn = document.getElementById('collapse-btn');
@@ -1102,16 +792,8 @@ function toggleSchedule() {
   btn.classList.toggle('collapsed');
 }
 
-// Auto-select next class on load
-function initCalendar() {
-  // Find which month the next class is in
-  const nextDate = new Date(nextClassDate);
-  currentMonth = months.findIndex(m => m.month === nextDate.getMonth() && m.year === nextDate.getFullYear());
-  if (currentMonth === -1) currentMonth = 0;
-  selectedDate = nextClassDate;
-}
-
-initCalendar();
+// Initialize
+selectedDate = nextClassDate;
 render();
 // Show next class details after DOM is ready
 setTimeout(() => showClassDetail(nextClassDate), 0);
