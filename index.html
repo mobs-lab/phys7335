@@ -109,6 +109,38 @@ const COURSE_CONFIG = {
       ]
     },
     { type: "holiday", dates: "Thur Jan 29", title: "Alex and Jessica out of town- Make-Up Class TBD" },
+    {
+      type: "week",
+      num: 5,
+      dates: "Mon Feb 2, Thu Feb 5",
+      topic: "Compartmental Models & Epidemic Thresholds continued",
+      description: "Epidemic threshold calculation and computational approaches, next-generation matrices, growth rates",
+      readings: [
+        { text: "The construction of next-generation matrices for compartmental epidemic models", url: "https://royalsocietypublishing.org/rsif/article/7/47/873/65609/The-construction-of-next-generation-matrices-for" },
+      ]
+    },
+    {
+      type: "week",
+      num: 6,
+      dates: "Mon Feb 9, Thu Feb 12",
+      topic: "Epidemic Spreading on Networks",
+      description: "Heterogeneous mean-field approach, degree-based approximations, network structure effects",
+      readings: [
+        { text: "Textbook: Chapter 9", url: null },
+        { text: "Pastor-Satorras & Vespignani (2001)", url: "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.86.3200" }
+      ]
+    },
+    { type: "holiday", dates: "Mon Feb 16", title: "🇺🇸 Presidents Day — No Class" },
+    {
+      type: "week",
+      num: 7,
+      dates: "Thu Feb 19",
+      topic: "Epidemic Spreading on Networks (continued)",
+      description: "",
+      readings: [
+        { text: "Textbook: Chapter 9", url: null },
+      ]
+    },
   ],
 
   // ─────────────────────────────────────────────────────────────────────────────
@@ -135,12 +167,13 @@ const COURSE_CONFIG = {
   calendarEvents: {
     "2026-01-19": { type: "holiday", label: "No Class" },
     "2026-01-29": { type: "holiday", label: "No Class" },
+    "2026-02-16": { type: "holiday", label: "No Class" },
 
   },
   
   // Class days (Mon=1, Thu=4) - semester start/end
   semesterStart: "2026-01-08",
-  semesterEnd: "2026-01-31",
+  semesterEnd: "2026-02-28",
   classDays: [1, 4] // Monday and Thursday
 };
 
@@ -291,6 +324,21 @@ tr:hover { background: rgba(255,255,255,0.02); }
   border-radius: 12px;
   padding: 24px;
 }
+.cal-nav-btn {
+  background: var(--highlight);
+  border: 1px solid var(--border);
+  color: var(--text);
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+.cal-nav-btn:hover:not(:disabled) { background: var(--teal); color: var(--primary); }
+.cal-nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
 .calendar-header {
   display: flex;
   justify-content: center;
@@ -502,6 +550,13 @@ const classDetails = {
   "2026-01-15": { week: 2, topic: "Networks Review (continued) & Random Walks on Networks", desc: "Deterministic vs. stochastic models, degree block models", readings: [{text:"Textbook: Chapters 1–3, Chapter 8"}]},
   "2026-01-22": { week: 3, topic: "Random Walks on Networks (continued) & Introduction to Compartmental Models", desc: "SIR/SIS models, homogeneous mixing, reproductive number", readings: [{text:"Textbook: Chapter 9"},{text:"Kermack & McKendrick (1927)",url:"https://royalsocietypublishing.org/doi/10.1098/rspa.1927.0118"},{text:"Lecture Notes",url:"https://www.mobs-lab.org/uploads/6/7/8/7/6787877/lecturenotes.pdf"}]},
   "2026-01-26": { week: 4, topic: "Compartmental Models & Epidemic Thresholds", desc: "Basic reproduction number R₀, epidemic dynamics", readings: [{text:"Textbook: Chapter 9"}]},
+  "2026-02-02": { week: 5, topic: "Compartmental Models & Epidemic Thresholds continued", desc: "Epidemic threshold calculation and computational approaches, next-generation matrices, growth rates", readings: [{text:"The construction of next-generation matrices for compartmental epidemic models",url:"https://royalsocietypublishing.org/rsif/article/7/47/873/65609/The-construction-of-next-generation-matrices-for"}]},
+  "2026-02-05": { week: 5, topic: "Compartmental Models & Epidemic Thresholds continued", desc: "Epidemic threshold calculation and computational approaches, next-generation matrices, growth rates", readings: [{text:"The construction of next-generation matrices for compartmental epidemic models",url:"https://royalsocietypublishing.org/rsif/article/7/47/873/65609/The-construction-of-next-generation-matrices-for"}]},
+  "2026-02-09": { week: 6, topic: "Epidemic Spreading on Networks", desc: "Heterogeneous mean-field approach, degree-based approximations, network structure effects", readings: [{text:"Textbook: Chapter 10"},{text:"Pastor-Satorras & Vespignani (2001)",url:"https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.86.3200"}]},
+  "2026-02-12": { week: 6, topic: "Epidemic Spreading on Networks", desc: "Heterogeneous mean-field approach, degree-based approximations, network structure effects", readings: [{text:"Textbook: Chapter 10"},{text:"Pastor-Satorras & Vespignani (2001)",url:"https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.86.3200"}]},
+  "2026-02-19": { week: 7, topic: "Epidemic Spreading on Networks (continued)", desc: "Quenched mean-field theory, message passing approaches", readings: [{text:"Textbook: Chapter 10"}]},
+  "2026-02-23": { week: 8, topic: "Metapopulation Models", desc: "Reaction-diffusion processes, mobility networks, invasion thresholds", readings: [{text:"Textbook: Chapter 11"},{text:"Colizza et al. (2007)",url:"https://www.nature.com/articles/nphys560"}]},
+  "2026-02-26": { week: 8, topic: "Metapopulation Models", desc: "Reaction-diffusion processes, mobility networks, invasion thresholds", readings: [{text:"Textbook: Chapter 11"},{text:"Colizza et al. (2007)",url:"https://www.nature.com/articles/nphys560"}]},
 };
 
 // Find next upcoming class
@@ -517,11 +572,24 @@ function getNextClass() {
 let selectedDate = null;
 let nextClassDate = getNextClass();
 
-// Calendar state - just January
-const currentMonth = { year: 2026, month: 0, name: "January 2026" };
+// Calendar state - January and February
+const months = [
+  { year: 2026, month: 0, name: "January 2026" },
+  { year: 2026, month: 1, name: "February 2026" }
+];
 
-function renderCalendar() {
-  const m = currentMonth;
+// Default to current month (find index matching current date, or default to 0)
+function getCurrentMonthIndex() {
+  const now = new Date();
+  const currentYear = now.getFullYear();
+  const currentMonth = now.getMonth();
+  const idx = months.findIndex(m => m.year === currentYear && m.month === currentMonth);
+  return idx >= 0 ? idx : 0;
+}
+
+let currentMonthIndex = getCurrentMonthIndex();
+
+function renderCalendar(m) {
   const firstDay = new Date(m.year, m.month, 1);
   const lastDay = new Date(m.year, m.month + 1, 0);
   const startPad = firstDay.getDay();
@@ -558,9 +626,33 @@ function renderCalendar() {
   return html;
 }
 
+function updateCalendarDisplay() {
+  const m = months[currentMonthIndex];
+  document.getElementById('calendar-month-title').textContent = m.name;
+  document.getElementById('calendar-grid').innerHTML = renderCalendar(m);
+  
+  // Update button states
+  document.getElementById('prev-month-btn').disabled = currentMonthIndex === 0;
+  document.getElementById('next-month-btn').disabled = currentMonthIndex === months.length - 1;
+}
+
+function prevMonth() {
+  if (currentMonthIndex > 0) {
+    currentMonthIndex--;
+    updateCalendarDisplay();
+  }
+}
+
+function nextMonth() {
+  if (currentMonthIndex < months.length - 1) {
+    currentMonthIndex++;
+    updateCalendarDisplay();
+  }
+}
+
 function selectDate(dateStr) {
   selectedDate = dateStr;
-  document.getElementById('calendar-grid').innerHTML = renderCalendar();
+  document.getElementById('calendar-grid').innerHTML = renderCalendar(months[currentMonthIndex]);
   showClassDetail(dateStr);
 }
 
@@ -611,7 +703,7 @@ function render() {
           <li><a href="#about" class="active">About</a></li>
           <li><a href="#instructors">Instructors</a></li>
           <li><a href="#topics">Topics</a></li>
-          <li><a href="#calendar">January Overview</a></li>
+          <li><a href="#calendar">Calendar</a></li>
           <li><a href="#schedule">Schedule</a></li>
           <li><a href="#assignments">Assignments</a></li>
         </ul>
@@ -682,14 +774,20 @@ function render() {
       
       <section id="calendar">
         <div class="container">
-          <h2>January Overview</h2>
+          <h2>Calendar Overview</h2>
           <div class="calendar-layout">
             <div class="calendar-wrapper">
               <div class="calendar-header">
-                <h3>${currentMonth.name}</h3>
+                <button class="cal-nav-btn" id="prev-month-btn" onclick="prevMonth()">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                </button>
+                <h3 id="calendar-month-title">${months[currentMonthIndex].name}</h3>
+                <button class="cal-nav-btn" id="next-month-btn" onclick="nextMonth()">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/></svg>
+                </button>
               </div>
               <div class="calendar-grid" id="calendar-grid">
-                ${renderCalendar()}
+                ${renderCalendar(months[currentMonthIndex])}
               </div>
               <div class="cal-legend">
                 <div class="cal-legend-item"><div class="cal-legend-dot" style="background: rgba(11, 204, 222, 0.4);"></div> Class</div>
@@ -706,7 +804,7 @@ function render() {
       <section id="schedule">
         <div class="container">
           <div class="collapsible-header" onclick="toggleSchedule()">
-            <h2>January Schedule</h2>
+            <h2>Schedule</h2>
             <button class="collapse-btn" id="collapse-btn">
               <span id="collapse-icon">▼</span>
             </button>
@@ -795,8 +893,13 @@ function toggleSchedule() {
 // Initialize
 selectedDate = nextClassDate;
 render();
-// Show next class details after DOM is ready
-setTimeout(() => showClassDetail(nextClassDate), 0);
+// Show next class details and update button states after DOM is ready
+setTimeout(() => {
+  showClassDetail(nextClassDate);
+  // Update button disabled states
+  document.getElementById('prev-month-btn').disabled = currentMonthIndex === 0;
+  document.getElementById('next-month-btn').disabled = currentMonthIndex === months.length - 1;
+}, 0);
 </script>
 </body>
 </html>
