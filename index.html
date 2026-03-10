@@ -141,6 +141,37 @@ const COURSE_CONFIG = {
         { text: "Textbook: Chapter 9", url: null },
       ]
     },
+    {
+      type: "week",
+      num: 8,
+      dates: "Mon Feb 23, Thu Feb 26",
+      topic: "Contagion Processes on Networks, Epidemic Thresholds",
+      description: "Network structure effects, degree distributions, heterogeneous transmission",
+      readings: [
+        { text: "slides", url: "slides/networks.pdf" },
+        { text: "Textbook: Chapter 9", url: null },
+      ]
+    },
+    { type: "holiday", dates: "Mon Mar 2 - Thu Mar 5", title: "🏖️ Spring Break" },
+    {
+      type: "week",
+      num: 9,
+      dates: "Mon Mar 9",
+      topic: "Rumor Models & Information Diffusion",
+      description: "Rumor spreading, information cascades, belief dynamics",
+      readings: [
+        { text: "slides", url: "slides/Rumor-model-2026.pdf" },
+        { text: "Textbook: Chapter 12", url: null },
+      ]
+    },
+    {
+      type: "week",
+      num: 9,
+      dates: "Thu Mar 12",
+      topic: "In-class Assignment",
+      description: "",
+      readings: []
+    },
   ],
 
   // ─────────────────────────────────────────────────────────────────────────────
@@ -168,12 +199,14 @@ const COURSE_CONFIG = {
     "2026-01-19": { type: "holiday", label: "No Class" },
     "2026-01-29": { type: "holiday", label: "No Class" },
     "2026-02-16": { type: "holiday", label: "No Class" },
+    "2026-03-02": { type: "break", label: "Spring Break" },
+    "2026-03-05": { type: "break", label: "Spring Break" },
 
   },
   
   // Class days (Mon=1, Thu=4) - semester start/end
   semesterStart: "2026-01-08",
-  semesterEnd: "2026-02-28",
+  semesterEnd: "2026-03-12",
   classDays: [1, 4] // Monday and Thursday
 };
 
@@ -555,8 +588,10 @@ const classDetails = {
   "2026-02-09": { week: 6, topic: "Epidemic Spreading on Networks", desc: "Heterogeneous mean-field approach, degree-based approximations, network structure effects", readings: [{text:"Textbook: Chapter 10"},{text:"Pastor-Satorras & Vespignani (2001)",url:"https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.86.3200"}]},
   "2026-02-12": { week: 6, topic: "Epidemic Spreading on Networks", desc: "Heterogeneous mean-field approach, degree-based approximations, network structure effects", readings: [{text:"Textbook: Chapter 10"},{text:"Pastor-Satorras & Vespignani (2001)",url:"https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.86.3200"}]},
   "2026-02-19": { week: 7, topic: "Epidemic Spreading on Networks (continued)", desc: "Quenched mean-field theory, message passing approaches", readings: [{text:"Textbook: Chapter 10"}]},
-  "2026-02-23": { week: 8, topic: "Metapopulation Models", desc: "Reaction-diffusion processes, mobility networks, invasion thresholds", readings: [{text:"Textbook: Chapter 11"},{text:"Colizza et al. (2007)",url:"https://www.nature.com/articles/nphys560"}]},
-  "2026-02-26": { week: 8, topic: "Metapopulation Models", desc: "Reaction-diffusion processes, mobility networks, invasion thresholds", readings: [{text:"Textbook: Chapter 11"},{text:"Colizza et al. (2007)",url:"https://www.nature.com/articles/nphys560"}]},
+  "2026-02-23": { week: 8, topic: "Contagion Processes on Networks, Epidemic Thresholds", desc: "Network structure effects, degree distributions, heterogeneous transmission", readings: [{text:"slides",url:"slides/networks.pdf"},{text:"Textbook: Chapter 9"}]},
+  "2026-02-26": { week: 8, topic: "Contagion Processes on Networks, Epidemic Thresholds", desc: "Network structure effects, degree distributions, heterogeneous transmission", readings: [{text:"slides",url:"slides/networks.pdf"},{text:"Textbook: Chapter 9"}]},
+  "2026-03-09": { week: 9, topic: "Rumor Models & Information Diffusion", desc: "Rumor spreading, information cascades, belief dynamics", readings: [{text:"slides",url:"slides/Rumor-model-2026.pdf"},{text:"Textbook: Chapter 12"}]},
+  "2026-03-12": { week: 9, topic: "In-class Assignment", desc: "", readings: []},
 };
 
 // Find next upcoming class
@@ -572,10 +607,11 @@ function getNextClass() {
 let selectedDate = null;
 let nextClassDate = getNextClass();
 
-// Calendar state - January and February
+// Calendar state - January, February, and March
 const months = [
   { year: 2026, month: 0, name: "January 2026" },
-  { year: 2026, month: 1, name: "February 2026" }
+  { year: 2026, month: 1, name: "February 2026" },
+  { year: 2026, month: 2, name: "March 2026" }
 ];
 
 // Default to current month (find index matching current date, or default to 0)
